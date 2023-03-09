@@ -2,8 +2,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Tabs
     const tabs = document.querySelectorAll('.tabheader__item'),
-          tabsContent = document.querySelectorAll('.tabcontent'),
-          tabsParent = document.querySelector('.tabheader__items');
+        tabsContent = document.querySelectorAll('.tabcontent'),
+        tabsParent = document.querySelector('.tabheader__items');
           
 
 
@@ -53,17 +53,17 @@ window.addEventListener('DOMContentLoaded', () => {
             seconds = 0;
         } else {
             days = Math.floor(t / (1000 * 60 * 60 * 24)),
-            hours = Math.floor((t / (1000 * 60 * 60) % 24)),
-            minutes = Math.floor((t / (1000 * 60) % 60)),
-            seconds = Math.floor((t / 1000) % 60);
+                hours = Math.floor((t / (1000 * 60 * 60) % 24)),
+                minutes = Math.floor((t / (1000 * 60) % 60)),
+                seconds = Math.floor((t / 1000) % 60);
         }
           
         return {
-        'total': t,
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
         };
     }
 
@@ -101,19 +101,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // Modal
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
-          modalCloseBtn = document.querySelector('[data-close]'),
-          modal = document.querySelector('.modal');
+        modalCloseBtn = document.querySelector('[data-close]'),
+        modal = document.querySelector('.modal');
   
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerID);
+    }
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
     
-         modalTrigger.forEach(btn => {
-         btn.addEventListener('click', function () {
-            // modalDialog.style.display = 'block';
-            modal.classList.add('show');
-            modal.classList.remove('hide');
-            document.body.style.overflow = 'hidden';
-        });
-     });
-    
+     
     
 
     function closeModalDialog() {
@@ -121,7 +123,7 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('show');
         document.body.style.overflow = '';
     }
-     modalCloseBtn.addEventListener('click', closeModalDialog);
+    modalCloseBtn.addEventListener('click', closeModalDialog);
  
     
     modal.addEventListener('click', (e) => {
@@ -136,9 +138,15 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    const modalTimerID = setTimeout(openModal, 2000);
 
-
-
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight-1) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+    window.addEventListener('scroll', showModalByScroll);
 
 
 });
