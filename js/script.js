@@ -232,10 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 margin: 0 auto;
             `;
             form.insertAdjacentElement('afterend', statusMessage);
-
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            request.setRequestHeader('Content-type', 'application/json');
+            
 
             const formData = new FormData(form);
 
@@ -243,22 +240,25 @@ window.addEventListener('DOMContentLoaded', () => {
             formData.forEach(function (value, key) {
                 obj[key] = value;
             });
-            const json = JSON.stringify(obj);
 
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status == 200) {
-                    console.log(request.response);
-                    showThanksModal(messages.success);
-                    form.reset();
-                    statusMessage.remove();
-                } else {
-                    showThanksModal(messages.failure);
-                    statusMessage.remove();
-               }
+            fetch('server.php', {
+                method: "POST",
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(obj)
+            }).then(data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(messages.success);
+                statusMessage.remove();    
+            }).catch(() => {
+                showThanksModal(messages.failure);
+                statusMessage.remove();
+            }).finally(() => {
+                form.reset();
             });
         });
+
+        
     }
 
     function showThanksModal(message) {
@@ -276,16 +276,12 @@ window.addEventListener('DOMContentLoaded', () => {
         `;
 
         document.querySelector('.modal').append(thanksModal);
-        const first = setTimeout(() => {
+        setTimeout(() => {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
             closeModalDialog();
         }, 4000);
-
-        
-
-
     }
 
 });
