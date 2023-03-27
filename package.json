@@ -1,0 +1,22 @@
+{
+  "name": "project-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2021Valentin/Website-restaurant-food-delivery-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2021Valentin/Website-restaurant-food-delivery-/issues"
+  },
+  "homepage": "https://github.com/2021Valentin/Website-restaurant-food-delivery-#readme",
+  "devDependencies": {
+    "json-server": "^0.17.3"
+  }
+}
