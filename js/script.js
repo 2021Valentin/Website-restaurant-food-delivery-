@@ -4,8 +4,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tabheader__item'),
         tabsContent = document.querySelectorAll('.tabcontent'),
         tabsParent = document.querySelector('.tabheader__items');
-          
-
 
     function hideTabContent() {
         tabsContent.forEach(item => {
@@ -308,7 +306,54 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // Slider
+
+    const sliderNext = document.querySelector('.offer__slider-next');
+    const sliderPrev = document.querySelector('.offer__slider-prev');
+    const currentSlider = document.querySelector('#current');
+    const totalSliders = document.querySelector('#total');
+    const sliders = document.querySelectorAll('.offer__slide');
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    if (sliders.length < 10) {
+            totalSliders.textContent = `0${sliders.length}`;
+        } else {
+            totalSliders.textContent = sliders.length;
+        }
+        
+    function showSlides(n) {
+        if (n > sliders.length) {
+            slideIndex = 1;
+        } 
+
+        if (n < 1) {
+            slideIndex = sliders.length;
+        }
+
+        sliders.forEach(item => item.style.display = 'none');
+        sliders[slideIndex - 1].style.display = 'block';
+
+        if (sliders.length < 10) {
+            currentSlider.textContent = `0${slideIndex}`;
+        } else {
+            currentSlider.textContent = slideIndex;
+        }
+        
+        
+    }
+
+    function count(n) {
+       showSlides(slideIndex += n);
+    }
+
+    sliderNext.addEventListener('click', (event) => {
+        count(1);
+    });
+    sliderPrev.addEventListener('click', (event) => {
+        count(-1);
+    });
+   
+
 });
-
- 
-
