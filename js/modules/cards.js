@@ -1,3 +1,5 @@
+import { getResource } from "../services/services";
+
 function cards() {
     // Using Classes for Cards
     class MenuCard {
@@ -43,14 +45,6 @@ function cards() {
         });
     }); 
 
-    async function getResource(url) {
-        let res = await fetch(url);
-
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${fetch}, status: ${res.status}`);
-        }
-        return await res.json();
-    };
 }
 
-module.exports = cards;
+export default cards;

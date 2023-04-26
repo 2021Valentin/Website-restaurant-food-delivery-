@@ -1,12 +1,12 @@
-function slider() {
-    const sliderNext = document.querySelector('.offer__slider-next'),
-        slider = document.querySelector('.offer__slider'),
-        sliderPrev = document.querySelector('.offer__slider-prev'),
-        currentSlides = document.querySelector('#current'),
-        totalSlides = document.querySelector('#total'),
-        slides = document.querySelectorAll('.offer__slide'),
-        slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-        slidesField = document.querySelector('.offer__slider-inner'),
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
+    const sliderNext = document.querySelector(nextArrow),
+        slider = document.querySelector(container),
+        sliderPrev = document.querySelector(prevArrow),
+        currentSlides = document.querySelector(currentCounter),
+        totalSlides = document.querySelector(totalCounter),
+        slides = document.querySelectorAll(slide),
+        slidesWrapper = document.querySelector(wrapper),
+        slidesField = document.querySelector(field),
         width = window.getComputedStyle(slidesWrapper).width;
     
     function illuminationPoints(dots) {
@@ -127,4 +127,4 @@ function slider() {
     });
 }
 
-module.exports = slider;
+export default slider;
